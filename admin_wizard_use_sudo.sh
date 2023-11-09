@@ -47,11 +47,11 @@ apt install tcl tk expect tmux thefuck -y
 
 
 # edit .bashrc
-# cat ./bash_sup.txt >> ~/.bashrc
+cat ./bash_sup.txt >> ~/.bashrc
 sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g'  ~/.bashrc
 source ~/.bashrc
 
-# send "cat ./bash_sup.txt >> /etc/skel/.bashrc\r"
+cat ./bash_sup.txt >> /etc/skel/.bashrc\r
 sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g' /etc/skel/.bashrc
 
 
@@ -63,6 +63,7 @@ function mount_nas(){
     apt install nfs-kernel-server -y
     mount -t nfs -o rw  10.200.14.77:/lz97-leizhang /mnt/nas_77/
     echo "10.200.14.77:/lz97-leizhang /mnt/nas_77/ nfs defaults 0 0" >> /etc/fstab 
+    cd ~/ubuntu_new_user_bash
 }
 
 function install_xrdp(){
@@ -77,14 +78,14 @@ EOF
 }
 
 
-if [$xrdp_install_flag =~ $yes_flag ];then
+if [[ $xrdp_install_flag =~ $yes_flag ]];then
 install_xrdp
 fi
 
-if [$nas_mount_flag =~ $yes_flag ];then
+if [[ $nas_mount_flag =~ $yes_flag ]];then
 mount_nas
 fi
 
-if [$docker_install_flag =~ $install_docker ];then
+if [[ $docker_install_flag =~ $install_docker ]];then
     bash ./sub_scripts/$docker_installer
 fi

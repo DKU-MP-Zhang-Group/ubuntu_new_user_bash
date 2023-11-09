@@ -10,9 +10,10 @@
 6. 新用户创建/mnt/sdb下的数据存储文件夹
 ## 管理员第一次运行脚本
 1. 运行之前：
+    - 登录ubuntu管理员权限账户，如果没有则修改`spawn sudo -u ubuntu bash ./sub_scripts/$xrdp_installer`中`ubuntu`至*除root外*具有当前目录访问权限的用户
     - 安装expect: `sudo apt install tcl tk expect aria2 -y`
     - 临时设置代理: `export https_proxy=http://10.200.13.85:3128 && http_proxy=http://10.200.13.85:3128`
-    - clone本仓库:  `git clone https://github.com/DKU-MP-Zhang-Group/ubuntu_new_user_bash.git`
+    - 在*默认工作目录(~/)*下clone本仓库:  `git clone https://github.com/DKU-MP-Zhang-Group/ubuntu_new_user_bash.git`
 ### 功能
 1. 安装远程桌面（脚本）
 2. 挂载nas

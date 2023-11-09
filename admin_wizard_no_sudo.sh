@@ -25,6 +25,7 @@
 #--Automating Script versioning 
 ScriptVer="0.1.0"
 xrdp_installer="xrdp-installer_1.4.8.sh"
+docker_installer="get-docker.sh"
 yes_flag="y"
 no_flag="n"
 local_ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 172.17.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
@@ -35,6 +36,8 @@ echo
 read -p "Install xrdp?[y/n]: " xrdp_install_flag
 echo
 read -p "Mount nas?[y/n]: " nas_mount_flag
+echo
+read -p "Install docker?[y/n]: " docker_install_flag
 echo
 
 /usr/bin/expect << EOF
@@ -127,6 +130,15 @@ function install_xrdp(){
 EOF
 }
 
+function install_docker(){
+/usr/bin/expect << EOF
+    spawn bash ./sub_scripts/$docker_installer
+        expect {
+        "*password*" {send "$sudo_password\r"; exp_continue}
+        }
+    expect eof
+EOF
+}
 
 if [$xrdp_install_flag =~ $yes_flag ]
 then
@@ -136,4 +148,9 @@ fi
 if [$nas_mount_flag =~ $yes_flag ]
 then
 mount_nas
+fi
+
+if [$docker_install_flag =~ $install_docker ]
+then
+install_docker
 fi

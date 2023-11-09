@@ -75,7 +75,7 @@ EOF
     send "mkdir -p ~/miniconda3\r"
     send "cd sub_scripts\r"
     send "unset https_proxy && unset http_proxy"
-    send "aria2c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o  ./miniconda.sh"
+    send "aria2c https://repo.anaconda.com/miniconda/$conda_installer"
     send "bash $conda_installer -b -u -p ~/miniconda3\r"
     # send "\n\r"
     # expect "*Do you accept the license terms?*" {send "yes\r"}

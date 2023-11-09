@@ -10,8 +10,7 @@
 6. 新用户创建/mnt/sdb下的数据存储文件夹
 ## 管理员第一次运行脚本
 1. 运行之前：
-    - 安装git lfs: `sudo apt install git-lfs -y && git lfs install`
-    - 安装expect: `sudo apt install tcl tk expect -y`
+    - 安装expect: `sudo apt install tcl tk expect aria2 -y`
     - 临时设置代理: `export https_proxy=http://10.200.13.85:3128 && http_proxy=http://10.200.13.85:3128`
     - clone本仓库:  `git clone https://github.com/DKU-MP-Zhang-Group/ubuntu_new_user_bash.git`
 ### 功能

@@ -36,7 +36,7 @@ ScriptVer="0.1.0"
 
 password="123456"
 local_ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 172.17.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
-data_storage=`/mnt/sdb`
+data_storage="/mnt/sdb"
 conda_installer="Miniconda3-latest-Linux-x86_64.sh"
 echo "${local_ip}"
 for username in $@
@@ -44,7 +44,7 @@ do
 	if [ -n $username ]
 	then
 /usr/bin/expect << EOF
-    spawn adduser $username
+    spawn adduser $username --force-badname
     expect "*New password*" {send "$password\r"}
     expect "*Retype new password*" {send "$password\r"}
     expect "*Full Name*" {send "$username\r"}
@@ -74,10 +74,7 @@ EOF
     send "mkdir -p ws\r"
     send "mkdir -p ~/miniconda3\r"
     send "cd sub_scripts\r"
-    send "unset https_proxy && unset http_proxy"
-    send "aria2c https://repo.anaconda.com/miniconda/$conda_installer"
-    exec sleep 10
-    send "source ~/.bashrc"
+
     send "bash $conda_installer -b -u -p ~/miniconda3\r"
     # send "\n\r"
     # expect "*Do you accept the license terms?*" {send "yes\r"}

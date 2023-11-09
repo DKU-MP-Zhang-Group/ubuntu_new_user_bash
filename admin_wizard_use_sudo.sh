@@ -26,6 +26,9 @@
 ScriptVer="0.1.0"
 xrdp_installer="xrdp-installer_1.4.8.sh"
 docker_installer="get-docker.sh"
+conda_installer="Miniconda3-latest-Linux-x86_64.sh"
+current_user="ubuntu"
+
 yes_flag="y"
 no_flag="n"
 local_ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 172.17.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
@@ -45,17 +48,17 @@ hostnamectl set-hostname $local_ip
 
 apt install tcl tk expect tmux thefuck -y
 
-
 # edit .bashrc
-cat ./bash_sup.txt >> ~/.bashrc
-sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g'  ~/.bashrc
-source ~/.bashrc
+cat ./bash_sup.txt >> /home/$current_user/.bashrc
+sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g'  /home/$current_user/.bashrc
+source /home/$current_user/.bashrc
 
-cat ./bash_sup.txt >> /etc/skel/.bashrc\r
+cat ./bash_sup.txt >> /etc/skel/.bashrc
 sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g' /etc/skel/.bashrc
 
-
-sudo sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g' /etc/skel/.bashrc
+unset https_proxy && unset http_proxy
+# aria2c https://repo.anaconda.com/miniconda/$conda_installer -o ./sub_scripts/$conda_installer
+source /home/$current_user/.bashrc
 
 function mount_nas(){
     cd /mnt
@@ -63,12 +66,12 @@ function mount_nas(){
     apt install nfs-kernel-server -y
     mount -t nfs -o rw  10.200.14.77:/lz97-leizhang /mnt/nas_77/
     echo "10.200.14.77:/lz97-leizhang /mnt/nas_77/ nfs defaults 0 0" >> /etc/fstab 
-    cd ~/ubuntu_new_user_bash
+    cd /home/$current_user/ubuntu_new_user_bash
 }
 
 function install_xrdp(){
 /usr/bin/expect << EOF
-    spawn sudo -u ubuntu bash ./sub_scripts/$xrdp_installer
+    spawn sudo -u $current_user bash ./sub_scripts/$xrdp_installer
         expect {
         "*Please specify which DE you are using...:*" {send "1\r"; exp_continue }
         "*password*" {send "$sudo_password\r"; exp_continue}
@@ -86,6 +89,6 @@ if [[ $nas_mount_flag =~ $yes_flag ]];then
 mount_nas
 fi
 
-if [[ $docker_install_flag =~ $install_docker ]];then
-    bash ./sub_scripts/$docker_installer
+if [[ $docker_install_flag =~ $yes_flag ]];then
+bash ./sub_scripts/$docker_installer
 fi

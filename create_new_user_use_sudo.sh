@@ -76,6 +76,7 @@ EOF
     send "cd sub_scripts\r"
     send "unset https_proxy && unset http_proxy"
     send "aria2c https://repo.anaconda.com/miniconda/$conda_installer"
+    exec sleep 10
     send "source ~/.bashrc"
     send "bash $conda_installer -b -u -p ~/miniconda3\r"
     # send "\n\r"

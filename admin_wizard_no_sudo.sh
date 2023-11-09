@@ -45,8 +45,17 @@ echo
     expect eof
 EOF
 
+/usr/bin/expect << EOF
+    spawn sudo apt install tmux thefuck  -y
+    expect {
+        "*password*" {send "$sudo_password\r"; exp_continue}
+    }
+    expect eof
+EOF
+
 # edit .bashrc
-cat ./ws/ubuntu_new_user_bash/bash_sup.txt >> ~/.bashrc
+cat ./bash_sup.txt >> ~/.bashrc
+sed -i.bak 's|\(PS1.*\)\(\\h\)|\1\\H|g'  ~/.bashrc
 
 /usr/bin/expect << EOF
     spawn sudo su
@@ -55,7 +64,8 @@ cat ./ws/ubuntu_new_user_bash/bash_sup.txt >> ~/.bashrc
     }
     
     expect -re "\](\$|#)"
-    send "cat ./ws/ubuntu_new_user_bash/bash_sup.txt >> /etc/skel/.bashrc\r"
+    send "cat ./bash_sup.txt >> /etc/skel/.bashrc\r"
+    send "sed -i.bak 's|\(PS1.*\)\(\\h\)|\1\\H|g' /etc/skel/.bashrc\r"
     send "exit\r"
 
     expect eof

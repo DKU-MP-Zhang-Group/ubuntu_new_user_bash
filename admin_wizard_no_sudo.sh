@@ -46,7 +46,15 @@ echo
 EOF
 
 /usr/bin/expect << EOF
-    spawn sudo apt install tmux thefuck  -y
+    spawn sudo hostnamectl set-hostname $local_ip
+    expect {
+        "*password*" {send "$sudo_password\r"; exp_continue}
+    }
+    expect eof
+EOF
+
+/usr/bin/expect << EOF
+    spawn sudo apt install tmux thefuck -y
     expect {
         "*password*" {send "$sudo_password\r"; exp_continue}
     }
@@ -56,6 +64,7 @@ EOF
 # edit .bashrc
 cat ./bash_sup.txt >> ~/.bashrc
 sed -i.bak 's|\(PS1.*\)\(\\h\)|\1\\H|g'  ~/.bashrc
+source ~/.bashrc
 
 /usr/bin/expect << EOF
     spawn sudo su

@@ -36,7 +36,7 @@ ScriptVer="0.1.0"
 
 password="123456"
 local_ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 172.17.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
-rdp_installer="xrdp-installer_1.4.8.sh"
+data_storage=`/mnt/sdb`
 conda_installer="Miniconda3-latest-Linux-x86_64.sh"
 echo "${local_ip}"
 for username in $@
@@ -84,6 +84,7 @@ EOF
     send "exit\r"
     expect eof
 EOF
+    mkdir $data_storage/$username
     chage -d 0 $username
 	else
 		echo "The username is null!"

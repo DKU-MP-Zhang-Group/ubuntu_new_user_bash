@@ -1,0 +1,4 @@
+export https_proxy=http://10.200.13.85:3128
+export http_proxy=http://10.200.13.85:3128 
+# eval $(thefuck --alias --enable-experimental-instant-mode) 
+eval $(thefuck --alias )

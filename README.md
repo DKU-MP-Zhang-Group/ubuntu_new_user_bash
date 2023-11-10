@@ -18,6 +18,7 @@
     - 登录ubuntu管理员权限账户，如果没有则修改`current_user="ubuntu"`中`ubuntu`至当前用户
     - 安装expect: `sudo apt install tcl tk expect aria2 git net-tools -y`
     - 临时设置代理: `export https_proxy=http://10.200.13.85:3128 && http_proxy=http://10.200.13.85:3128`
+    - 最好进行git密码存储设置`git config --global credential.helper store`
     - 在*默认工作目录(~/)*下clone本仓库:  `git clone https://github.com/DKU-MP-Zhang-Group/ubuntu_new_user_bash.git`
 ### 功能
 1. 安装远程桌面（脚本）

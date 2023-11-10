@@ -8,13 +8,15 @@
 4. 创建workspace文件夹
 5. 配置代理
 6. 新用户创建/mnt/sdb下的数据存储文件夹  
-出现下图done字样之前不要中断程序
+
+出现下图done字样之前不要中断程序  
+
 ![](imgs/2023-11-10-05-13-18.png)  
 ## 管理员第一次运行脚本
 1. 运行之前：
     - 请勿在root下运行
     - 登录ubuntu管理员权限账户，如果没有则修改`current_user="ubuntu"`中`ubuntu`至当前用户
-    - 安装expect: `sudo apt install tcl tk expect aria2 -y`
+    - 安装expect: `sudo apt install tcl tk expect aria2 git net-tools -y`
     - 临时设置代理: `export https_proxy=http://10.200.13.85:3128 && http_proxy=http://10.200.13.85:3128`
     - 在*默认工作目录(~/)*下clone本仓库:  `git clone https://github.com/DKU-MP-Zhang-Group/ubuntu_new_user_bash.git`
 ### 功能

@@ -58,6 +58,8 @@ source /home/$current_user/.bashrc
 cat ./bash_sup.txt >> /etc/skel/.bashrc
 sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g' /etc/skel/.bashrc
 
+echo "/usr/bin/nvidia-persistenced --verbose" | sudo tee -a /etc/init.d/rc.local
+
 unset https_proxy && unset http_proxy
 aria2c https://repo.anaconda.com/miniconda/$conda_installer -o ./sub_scripts/$conda_installer
 source /home/$current_user/.bashrc

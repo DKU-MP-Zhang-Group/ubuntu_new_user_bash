@@ -30,6 +30,13 @@
 3. 修改主机名，并通过PS1设置完全展示主机名， 同步修改/etc/skel/下的`.bashrc`文件(PS1中\h ——> \H, 显示全部主机名)
 4. 安装需要的软件：tmux, thefuck(修改bash), docker
 5. 文件夹权限：/mnt/sdb
+## 管理员nas权限管理脚本（可以被admin wizard调用） 
+只要组名一致，不同服务器上的用户就可以访问
+1. 新建一个用户组`sudo groupadd groupname`， 格式名为`nasname_user`, 比如`nas_77_user`
+2. 把nas所有权改为该用户组`sudo chgrp groupname nasname`
+3. 添加用户到用户组`sudo usermod -aG groupname username`
+### TODO
+1. 自动查找没有
 ## 新用户第一次运行脚本
 1. 修改密码
 2. 配置git

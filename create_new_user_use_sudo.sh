@@ -38,11 +38,14 @@ password="123456"
 local_ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 172.17.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
 data_storage="/mnt/sdb"
 conda_installer="Miniconda3-latest-Linux-x86_64.sh"
+nas_77_user_group="nas_77_user"
 echo "${local_ip}"
 for username in $@
 do
 	if [ -n $username ]
 	then
+    read -p "user "$username" is a nas_77(Prof. Lei Zhang's group) user?[y/n]" nas_77_flag
+    echo
 /usr/bin/expect << EOF
     spawn adduser $username --force-badname
     expect "*New password*" {send "$password\r"}
@@ -55,6 +58,10 @@ do
     expect "*Is the information correct?*" { send "Y\r"}
     expect eof
 EOF
+    if [[ $nas_mount_flag =~ $yes_flag ]];then
+    sudo usermod -aG $nas_77_user_group $username
+    fi
+    
     sudo usermod -aG docker $username
 /usr/bin/expect << EOF
     spawn sudo su

@@ -1,4 +1,5 @@
 # ubuntu_new_user_bash
+介绍在： https://dku-mp-zhang-group.github.io/docs/#/./server%20maintance/shell%20scripts
 作为科研用途服务器管理员，为了便利操作需要：
 ## 管理员新建用户脚本
 ### 功能
@@ -29,6 +30,13 @@
 3. 修改主机名，并通过PS1设置完全展示主机名， 同步修改/etc/skel/下的`.bashrc`文件(PS1中\h ——> \H, 显示全部主机名)
 4. 安装需要的软件：tmux, thefuck(修改bash), docker
 5. 文件夹权限：/mnt/sdb
+## 管理员nas权限管理脚本（可以被admin wizard调用） 
+只要组名一致，不同服务器上的用户就可以访问
+1. 新建一个用户组`sudo groupadd groupname`， 格式名为`nasname_user`, 比如`nas_77_user`
+2. 把nas所有权改为该用户组`sudo chgrp groupname nasname`
+3. 添加用户到用户组`sudo usermod -aG groupname username`
+### TODO
+1. 自动查找没有
 ## 新用户第一次运行脚本
 1. 修改密码
 2. 配置git
@@ -42,5 +50,6 @@
 ## TODO
 1. 
 ![](imgs/2023-11-11-01-37-48.png)
-将此处的绝对文件路径改为根据当前执行文件确定的相对路径。这样可以不局限于在`~/`目录下运行。
-2. 自动检测数据盘，并修改`/mnt/sdb`
+将此处的绝对文件路径改为根据当前执行文件确定的相对路径。这样可以不局限于在`~/`目录下运行。  
+2. 自动检测数据盘，并修改`/mnt/sdb`  
+3. 检测bashrc文件，如果已经修改完成则不再修改  

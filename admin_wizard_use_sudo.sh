@@ -67,9 +67,12 @@ source /home/$current_user/.bashrc
 function mount_nas(){
     cd /mnt
     sudo mkdir nas_77
+    sudo groupadd nas_77_user
+    sudo chgrp nas_77_user nas_77
     apt install nfs-kernel-server -y
     mount -t nfs -o rw  10.200.14.77:/lz97-leizhang /mnt/nas_77/
     echo "10.200.14.77:/lz97-leizhang /mnt/nas_77/ nfs defaults 0 0" >> /etc/fstab 
+    sudo chmod 770 nas_77
     cd /home/$current_user/ubuntu_new_user_bash
 }
 

@@ -39,6 +39,7 @@ local_ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 172.17.0.1|grep -v ine
 data_storage="/mnt/sdb"
 conda_installer="Miniconda3-latest-Linux-x86_64.sh"
 nas_77_user_group="nas_77_user"
+yes_flag="y"
 echo "${local_ip}"
 for username in $@
 do
@@ -58,7 +59,8 @@ do
     expect "*Is the information correct?*" { send "Y\r"}
     expect eof
 EOF
-    if [[ $nas_mount_flag =~ $yes_flag ]];then
+    # if [[ $nas_mount_flag =~ $yes_flag ]];then
+    if [[ $nas_77_flag =~ $yes_flag ]];then
     sudo usermod -aG $nas_77_user_group $username
     fi
     
@@ -93,6 +95,7 @@ EOF
     expect eof
 EOF
     mkdir $data_storage/$username
+    sudo chgrp $username $data_storage/$username
     chage -d 0 $username
 	else
 		echo "The username is null!"

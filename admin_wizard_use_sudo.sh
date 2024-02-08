@@ -32,7 +32,7 @@ current_user="ubuntu"
 yes_flag="y"
 no_flag="n"
 local_ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 172.17.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
-data_storage="/mnt/sdc"
+data_storage="/mnt/sdb"
 # echo $local_ip
 # do not store password
 read -p "user "$current_user" password: " $sudo_password

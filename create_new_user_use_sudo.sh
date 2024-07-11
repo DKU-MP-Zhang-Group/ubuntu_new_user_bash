@@ -96,6 +96,7 @@ EOF
 EOF
     mkdir $data_storage/$username
     sudo chgrp $username $data_storage/$username
+    sudo chown $username $data_storage/$username
     chage -d 0 $username
 	else
 		echo "The username is null!"

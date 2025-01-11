@@ -35,6 +35,17 @@
 1. 新建一个用户组`sudo groupadd groupname`， 格式名为`nasname_user`, 比如`nas_77_user`
 2. 把nas所有权改为该用户组`sudo chgrp groupname nasname`
 3. 添加用户到用户组`sudo usermod -aG groupname username`
+## 小黑屋配置
+如果普通用户由于操作失误多次造成服务器崩溃等恶性bug，可以启用小黑屋配置：
+1. 将本文件夹下的`0-temp-access-control.conf`文件移动到`/etc/ssh/sshd_config.d`路径下，并修改或添加匹配的用户
+2. 重启ssh服务并踢下用户:
+    ```bash
+    sudo systemctl restart sshd.service
+    sudo pkill -kill -u tianyi.zhang
+    ```
+3. 用`who`检查用户是否还有登录终端，有的话pkill掉
+
+最终的效果是用户可以使用xftp进行文件传输，但是无法使用ssh登录
 ### TODO
 1. 自动查找没有
 ## 新用户第一次运行脚本

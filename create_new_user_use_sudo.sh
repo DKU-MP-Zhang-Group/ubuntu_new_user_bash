@@ -35,7 +35,7 @@ ScriptVer="0.1.0"
 # echo "The return value of the last command is $?"
 
 password="123456"
-local_ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 172.17.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
+local_ip=`ifconfig -a|grep inet|grep 10.200|grep -v 172.17.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
 data_storage="/mnt/sdb"
 conda_installer="Miniconda3-latest-Linux-x86_64.sh"
 nas_77_user_group="nas_77_user"

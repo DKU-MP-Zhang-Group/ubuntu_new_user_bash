@@ -43,6 +43,8 @@ read -p "Mount nas?[y/n]: " nas_mount_flag
 echo
 read -p "Install docker?[y/n]: " docker_install_flag
 echo
+read -p "Modify hostname?[y/n]: " hostname_modify_flag
+echo
 
 chmod 777 $data_storage
 
@@ -52,11 +54,6 @@ apt install tcl tk expect tmux thefuck -y
 
 # edit .bashrc
 cat ./bash_sup.txt >> /home/$current_user/.bashrc
-sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g'  /home/$current_user/.bashrc
-source /home/$current_user/.bashrc
-
-cat ./bash_sup.txt >> /etc/skel/.bashrc
-sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g' /etc/skel/.bashrc
 
 echo "/usr/bin/nvidia-persistenced --verbose" | sudo tee -a /etc/init.d/rc.local
 
@@ -87,6 +84,13 @@ function install_xrdp(){
 EOF
 }
 
+function modify_hostname(){
+    sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g'  /home/$current_user/.bashrc
+    source /home/$current_user/.bashrc
+
+    cat ./bash_sup.txt >> /etc/skel/.bashrc
+    sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g' /etc/skel/.bashrc
+}
 
 if [[ $xrdp_install_flag =~ $yes_flag ]];then
 install_xrdp
@@ -98,4 +102,8 @@ fi
 
 if [[ $docker_install_flag =~ $yes_flag ]];then
 bash ./sub_scripts/$docker_installer
+fi
+
+if [[ $hostname_modify_flag =~ $yes_flag ]];then
+modify_hostname
 fi

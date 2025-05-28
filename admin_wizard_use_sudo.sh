@@ -82,6 +82,14 @@ function install_xrdp(){
 EOF
 }
 
+function install_docker(){
+    sudo apt-get install --only-upgrade openssl -y
+    sudo apt-get update
+    sudo apt-get install --reinstall ca-certificates -y
+    sudo update-ca-certificates
+
+    bash ./sub_scripts/$docker_installer
+}
 function modify_hostname(){
     hostnamectl set-hostname $local_ip
 
@@ -101,7 +109,7 @@ mount_nas
 fi
 
 if [[ $docker_install_flag =~ $yes_flag ]];then
-bash ./sub_scripts/$docker_installer
+install_docker
 fi
 
 if [[ $hostname_modify_flag =~ $yes_flag ]];then

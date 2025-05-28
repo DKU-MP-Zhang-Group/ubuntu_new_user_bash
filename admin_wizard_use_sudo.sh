@@ -35,7 +35,7 @@ local_ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 172.17.0.1|grep -v ine
 data_storage="/mnt/sdb"
 # echo $local_ip
 # do not store password
-read -p "user "$current_user" password: " $sudo_password
+read -p "user "$current_user" password: " sudo_password
 echo
 read -p "Install xrdp?[y/n]: " xrdp_install_flag
 echo
@@ -47,8 +47,6 @@ read -p "Modify hostname?[y/n]: " hostname_modify_flag
 echo
 
 chmod 777 $data_storage
-
-hostnamectl set-hostname $local_ip
 
 apt install tcl tk expect tmux thefuck -y
 
@@ -85,6 +83,8 @@ EOF
 }
 
 function modify_hostname(){
+    hostnamectl set-hostname $local_ip
+
     sed -i.bak 's/\(PS1.*\)\(\\h\)/\1\\H/g'  /home/$current_user/.bashrc
     source /home/$current_user/.bashrc
 
